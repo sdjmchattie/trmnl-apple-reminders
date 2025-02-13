@@ -1,0 +1,138 @@
+{% liquid
+case trmnl.plugin_settings.custom_fields_values.date_format
+when "2025-01-31"
+assign date_format = "%Y-%m-%d"
+when "31/01/2025"
+assign date_format = "%d/%m/%Y"
+when "01/31/2025"
+assign date_format = "%m/%d/%Y"
+else
+assign date_format = "%b %e %Y"
+endcase
+
+case trmnl.plugin_settings.custom_fields_values.time_format
+when "12_hours"
+assign time_format = "%l:%M %p"
+when "24_hours_(no_leading_zeroes_08:45)"
+assign time_format = "%k:%M"
+else
+assign time_format = "%H:%M"
+endcase
+
+case trmnl.plugin_settings.custom_fields_values.show_tags
+when "no"
+assign show_tags = false
+else
+assign show_tags = true
+endcase
+
+case trmnl.plugin_settings.custom_fields_values.show_notes
+when "no"
+assign show_notes = false
+else
+assign show_notes = true
+endcase
+
+case trmnl.plugin_settings.custom_fields_values.show_list_names
+when "no"
+assign show_list_names = false
+else
+assign show_list_names = true
+endcase
+
+case trmnl.plugin_settings.custom_fields_values.show_dates_and_times
+when "no"
+assign show_dates_and_times = false
+else
+assign show_dates_and_times = true
+endcase
+%}
+
+{% unless trmnl.plugin_settings.custom_fields_values.date_day_name == "no" %}
+{% capture date_format %}
+{{ date_format | prepend: "%a, " }}
+{% endcapture %}
+{% endunless %}
+
+{% if overdue == empty or today != empty %}
+{% assign layout_top = "layout--top" %}
+{% endif %}
+
+<div class="layout layout--col layout--stretch-x {{ layout_top }}" data-list-limit="true">
+  {% unless overdue == empty %}
+  <div class="title title--small text--center mt--2 mb--2">
+    You have {{ overdue.size }} overdue items!
+  </div>
+  {% endunless %}
+  {% if overdue == empty or today != empty %}
+  <div class="flex flex--col flex--stretch-x">
+    <div class="bg-gray-2 p--1 text--center" style="border-radius: 8px;">
+      <span class="title text--white" style="text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000, 1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000;">
+        {{ 'today' | l_word: trmnl.user.locale | capitalize }}
+      </span>
+    </div>
+    {% if today == empty %}
+    <div class="flex flex--col gap--space-between">
+      <span class="title">Time For a Coffee</span>
+      <span class="description">No more reminders for today!</span>
+      <img class="image" style="width: 90px;" src="https://github.com/sdjmchattie/trmnl-apple-reminders/blob/main/images/icons8-coffee-100.png?raw=true">
+    </div>
+    {% else %}
+    {% for item in today %}
+    {% liquid
+    case item.priority
+    when "Low"
+    assign importance = "! "
+    when "Medium"
+    assign importance = "!! "
+    when "High"
+    assign importance = "!!! "
+    else
+    assign importance = ""
+    endcase
+    %}
+    <div class="item">
+      <div class="meta">
+        {% if item.flagged %}
+        <span class="index">
+          <img class="image" src="https://github.com/sdjmchattie/trmnl-apple-reminders/blob/main/images/icons8-flag-10.png?raw=true">
+        </span>
+        {% endif %}
+      </div>
+      <div class="content">
+        <span class="title title--small clamp--1">{{ item.name | prepend: importance }}</span>
+        <div class="flex gap--small">
+          {% assign time = item.deadline | l_date: time_format, trmnl.user.locale %}
+          {% assign midnight = "1980-01-01" | l_date: time_format, trmnl.user.locale %}
+          {% if show_dates_and_times and time != midnight %}
+          <span class="label label--small label--underline">{{ time }}</span>
+          {% endif %}
+          {% if show_list_names %}
+          <span class="label label--small label--underline">{{ item.list }}</span>
+          {% endif %}
+        </div>
+        <span class="description clamp--2" style="word-break: normal;">
+          {% if show_notes %}
+          {{ item.notes }}
+          {% endif %}
+        </span>
+        {% if show_tags and item.tags != empty %}
+        <div class="flex gap--xsmall mt--1">
+          {% assign tags = item.tags | split: ' ' %}
+          {% for tag in tags %}
+            <div class="label label--small label--inverted">#{{ tag }}</div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+  </div>
+  {% endif %}
+</div>
+
+<div class="title_bar">
+  <img class="image" src="https://github.com/sdjmchattie/trmnl-apple-reminders/blob/main/images/icons8-apple-logo-30.png?raw=true">
+  <span class="title">{{ trmnl.plugin_settings.instance_name }}</span>
+</div>
