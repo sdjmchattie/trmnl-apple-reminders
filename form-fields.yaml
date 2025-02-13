@@ -1,0 +1,76 @@
+- keyname: apple_shortcut_url
+  field_type: copyable
+  name: Shortcut URL
+  value: "https://www.icloud.com/shortcuts/c62b453460b646eca615dfedee463b7b"
+  description: |-
+    Import this shortcut on your iPhone or iPad.
+    Set up automations to trigger it at 00:05 and when Reminders is closed.
+    You will need to know the UUID of this plugin instance while importing.
+- keyname: show_dates_and_times
+  field_type: select
+  options:
+    - "Yes"
+    - "No"
+  default: "yes"
+  name: Dates and Times
+  description: Do you want dates/times shown for reminders?
+- keyname: show_list_names
+  field_type: select
+  options:
+    - "Yes"
+    - "No"
+  default: "yes"
+  name: List Names
+  description: Do you want list names shown for reminders?
+- keyname: show_notes
+  field_type: select
+  options:
+    - "Yes"
+    - "No"
+  default: "yes"
+  name: Notes
+  description: Do you want notes shown for reminders?
+- keyname: show_tags
+  field_type: select
+  options:
+    - "Yes"
+    - "No"
+  default: "yes"
+  name: Tags
+  description: Do you want tags shown for reminders?
+- keyname: date_format
+  field_type: select
+  options:
+    - "31 Jan 2025"
+    - "2025-01-31"
+    - "31/01/2025"
+    - "01/31/2025"
+  default: 31_jan_2025
+  name: Date Formatting
+  description: How do you want dates to be formatted? (will have no effect if dates are not shown)
+- keyname: date_day_name
+  field_type: select
+  options:
+    - "Yes"
+    - "No"
+  default: "yes"
+  name: Display Day Names?
+  description: Do you want day names shown in front of dates? (will have no effect if dates are not shown)
+- keyname: time_format
+  field_type: select
+  options:
+    - "12 hours"
+    - "24 hours (leading zeroes 08:45)"
+    - "24 hours (no leading zeroes 8:45)"
+  default: "24_hours_(leading_zeroes_08:45)"
+  name: Time Formatting
+  description: How do you want times to be formatted? (will have no effect if times are not shown)
+- keyname: right_label
+  field_type: select
+  options:
+    - "Attribution"
+    - "Your Name"
+    - "Blank"
+  default: attribution
+  name: Right Label
+  description: What do you want shown on the right of the title bar?
