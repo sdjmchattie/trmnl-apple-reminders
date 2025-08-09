@@ -54,6 +54,18 @@ endcase
 {% endcapture %}
 {% endunless %}
 
+{% if overdue.d %}
+{% assign overdue = overdue | sort %}
+{% endif %}
+
+{% if today.d %}
+{% assign today = today | sort %}
+{% endif %}
+
+{% if future.d %}
+{% assign future = future | sort %}
+{% endif %}
+
 <div class="layout layout--row layout--top">
   <div class="columns">
     <div class="column" data-list-limit="true" data-list-hidden-count="true">

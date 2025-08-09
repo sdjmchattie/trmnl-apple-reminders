@@ -54,6 +54,19 @@ endcase
 {% endcapture %}
 {% endunless %}
 
+{% if overdue.d %}
+{% assign overdue = overdue | sort %}
+{% endif %}
+
+{% if today.d %}
+{% assign today = today | sort %}
+{% endif %}
+
+{% if future.d %}
+{% assign future = future | sort %}
+{% endif %}
+
+
 <div class="layout layout--col layout--top layout--stretch-x" data-list-limit="true">
   {% unless overdue == empty %}
   <div class="flex flex--col flex--stretch-x">
