@@ -58,6 +58,19 @@ endcase
 {% assign layout_top = "layout--top" %}
 {% endif %}
 
+{% if overdue.d %}
+{% assign overdue = overdue | sort %}
+{% endif %}
+
+{% if today.d %}
+{% assign today = today | sort %}
+{% endif %}
+
+{% if future.d %}
+{% assign future = future | sort %}
+{% endif %}
+
+
 <div class="layout layout--col layout--stretch-x {{ layout_top }}" data-list-limit="true">
   {% unless overdue == empty %}
   <div class="title title--small text--center mt--2 mb--2">
