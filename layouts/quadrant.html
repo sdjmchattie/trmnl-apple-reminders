@@ -100,7 +100,7 @@ endcase
         {% endif %}
       </div>
       <div class="content">
-        <span class="title title--small clamp--1">{{ item.n | prepend: importance }}</span>
+        <span class="title title--small" data-clamp="1">{{ item.n | prepend: importance }}</span>
         <div class="flex gap--small">
           {% assign time = item.d | l_date: time_format, trmnl.user.locale %}
           {% assign midnight = "1980-01-01" | l_date: time_format, trmnl.user.locale %}
@@ -111,7 +111,7 @@ endcase
           <span class="label label--small label--underline">{{ item.l }}</span>
           {% endif %}
         </div>
-        <span class="description clamp--2" style="word-break: normal;">
+        <span class="description" data-clamp="2" style="word-break: normal;">
           {% if show_notes %}
           {{ item.o }}
           {% endif %}
