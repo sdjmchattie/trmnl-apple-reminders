@@ -6,6 +6,7 @@
     Import this shortcut on your iPhone or iPad.
     Set up automations to trigger it at 00:05 and when Reminders is closed.
     You will need to know the UUID of this plugin instance while importing.
+    Note that only reminders with a due date will be sent to TRMNL using this Shortcut.
 - keyname: show_dates_and_times
   field_type: select
   options:
