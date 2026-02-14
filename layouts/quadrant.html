@@ -54,18 +54,30 @@ endcase
 {% endcapture %}
 {% endunless %}
 
-{% if overdue == empty or today != empty %}
-{% assign layout_top = "layout--top" %}
-{% endif %}
+{% liquid
+if overdue == empty
+  assign overdue_classes = "hidden"
+else
+  assign overdue_classes = "title title--small text--center mt--2 mb--2"
+endif
+
+if overdue != empty and today == empty
+  assign today_classes = "hidden"
+else
+  assign today_classes = "flex flex--col flex--stretch-x"
+endif
+
+if overdue == empty or today != empty
+  assign layout_top = "layout--top"
+endif
+%}
 
 <div class="layout layout--col layout--stretch-x {{ layout_top }}" data-list-limit="true">
-  {% unless overdue == empty %}
-  <div class="title title--small text--center mt--2 mb--2">
+  <div class="{{ overdue_classes }}">
     You have {{ overdue.size }} overdue items!
   </div>
-  {% endunless %}
-  {% if overdue == empty or today != empty %}
-  <div class="flex flex--col flex--stretch-x">
+
+  <div class="{{ today_classes }}">
     <div class="bg-gray-2 p--1 text--center" style="border-radius: 8px;">
       <span class="title text--white" style="text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000, 1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000;">
         {{ 'today' | l_word: trmnl.user.locale | capitalize }}
@@ -129,7 +141,6 @@ endcase
     {% endfor %}
     {% endif %}
   </div>
-  {% endif %}
 </div>
 
 <div class="title_bar">

@@ -54,9 +54,22 @@ endcase
 {% endcapture %}
 {% endunless %}
 
+{% liquid
+if overdue == empty
+  assign overdue_classes = "hidden"
+else
+  assign overdue_classes = "flex flex--col flex--stretch-x"
+endif
+
+if today == empty
+  assign today_classes = "hidden"
+else
+  assign today_classes = "flex flex--col flex--stretch-x"
+endif
+%}
+
 <div class="layout layout--col layout--top layout--stretch-x" data-list-limit="true">
-  {% unless overdue == empty %}
-  <div class="flex flex--col flex--stretch-x">
+  <div class="{{ overdue_classes }}">
     <div class="bg-gray-2 p--1 text--center" style="border-radius: 8px;">
       <span class="title text--white" style="text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000, 1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000;">
         Overdue
@@ -110,9 +123,8 @@ endcase
     </div>
     {% endfor %}
   </div>
-  {% endunless %}
-  {% unless today == empty %}
-  <div class="flex flex--col flex--stretch-x">
+
+  <div class="{{ today_classes }}">
     <div class="bg-gray-2 p--1 text--center" style="border-radius: 8px;">
       <span class="title text--white" style="text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000, 1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000;">
         {{ 'today' | l_word: trmnl.user.locale | capitalize }}
@@ -168,7 +180,7 @@ endcase
     </div>
     {% endfor %}
   </div>
-  {% endunless %}
+
   <div class="flex flex--col flex--stretch-x">
     <div class="bg-gray-2 p--1 text--center" style="border-radius: 8px;">
       <span class="title text--white" style="text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000, 1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000;">
