@@ -55,183 +55,194 @@ endcase
 {% endunless %}
 
 <div class="layout layout--row layout--top">
-  <div class="columns">
-    <div class="column" data-list-limit="true" data-list-hidden-count="true">
-      <div class="bg-gray-2 p--1 text--center" style="border-radius: 8px;">
-        <span class="title text--white" style="text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000, 1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000;">
-          Overdue
-        </span>
-      </div>
-      {% if overdue == empty %}
-      <div class="flex flex--col h--28 gap--space-between">
-        <span class="title">Perfection</span>
-        <span class="description">No overdue reminders!</span>
-      </div>
-      {% else %}
-      {% for item in overdue %}
-      {% liquid
-      case item.priority
-      when "Low"
-      assign importance = "! "
-      when "Medium"
-      assign importance = "!! "
-      when "High"
-      assign importance = "!!! "
-      else
-      assign importance = ""
-      endcase
-      %}
-      <div class="item">
-      <div class="meta">
-        {% if item.flagged %}
-        <span class="index">
-        <img class="image" src="https://github.com/sdjmchattie/trmnl-apple-reminders/blob/main/images/icons8-flag-10.png?raw=true">
-        </span>
-        {% endif %}
-      </div>
-      <div class="content">
-        <span class="title title--small clamp--1">{{ item.name | prepend: importance }}</span>
-        <div class="flex gap--small">
-          {% if show_dates_and_times %}
-          <span class="label label--small label--underline">{{ item.deadline | l_date: date_format, trmnl.user.locale }}</span>
-          {% endif %}
-          {% if show_list_names %}
-          <span class="label label--small label--underline">{{ item.list }}</span>
-          {% endif %}
+    <div class="columns">
+        <div class="column" data-list-limit="true" data-list-hidden-count="true">
+            <div class="bg-gray-2 p--1 text--center" style="border-radius: 8px;">
+                <span class="title text--white" style="text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000, 1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000;">
+                    Overdue
+                </span>
+            </div>
+            {% if overdue == empty %}
+            <div class="flex flex--col h--28 gap--space-between">
+                <span class="title">Perfection</span>
+                <span class="description">No overdue reminders!</span>
+            </div>
+            {% else %}
+            {% for item in overdue %}
+            {% liquid
+            case item.p
+            when "Low"
+            assign importance = "! "
+            when "Medium"
+            assign importance = "!! "
+            when "High"
+            assign importance = "!!! "
+            else
+            assign importance = ""
+            endcase
+            %}
+            <div class="item">
+            <div class="meta">
+                {% if item.f %}
+                <span class="index">
+                <img class="image" src="https://github.com/sdjmchattie/trmnl-apple-reminders/blob/main/images/icons8-flag-10.png?raw=true">
+                </span>
+                {% endif %}
+            </div>
+            <div class="content">
+                <span class="title title--small clamp--1">{{ item.n | prepend: importance }}</span>
+                <div class="flex gap--small">
+                    {% if show_dates_and_times %}
+                    <span class="label label--small label--underline">{{ item.d | l_date: date_format, trmnl.user.locale }}</span>
+                    {% endif %}
+                    {% if show_list_names %}
+                    <span class="label label--small label--underline">{{ item.l }}</span>
+                    {% endif %}
+                </div>
+                <span class="description clamp--2" style="word-break: normal;">
+                    {% if show_notes %}
+                    {{ item.o }}
+                    {% endif %}
+                </span>
+                {% if show_tags and item.t != empty %}
+                <div class="flex gap--xsmall mt--1">
+                    {% assign tags = item.t | split: ' ' %}
+                    {% for tag in tags %}
+                    <div class="label label--small label--inverted">#{{ tag }}</div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+            {% endif %}
         </div>
-        <span class="description clamp--2" style="word-break: normal;">
-          {% if show_notes %}
-          {{ item.notes }}
-          {% endif %}
-        </span>
-        {% if show_tags and item.tags != empty %}
-        <div class="flex gap--xsmall mt--1">
-          {% assign tags = item.tags | split: ' ' %}
-          {% for tag in tags %}
-          <div class="label label--small label--inverted">#{{ tag }}</div>
-          {% endfor %}
+        <div class="column" data-list-limit="true" data-list-hidden-count="true">
+            <div class="bg-gray-2 p--1 text--center" style="border-radius: 8px;">
+                <span class="title text--white" style="text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000, 1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000;">
+                    {{ 'today' | l_word: trmnl.user.locale | capitalize }}
+                </span>
+            </div>
+            {% if today == empty %}
+            <div class="flex flex--col h--28 gap--space-between">
+                <span class="title">Time For a Coffee</span>
+                <span class="description">No more reminders for today!</span>
+            </div>
+            {% else %}
+            {% for item in today %}
+            {% liquid
+            case item.p
+            when "Low"
+            assign importance = "! "
+            when "Medium"
+            assign importance = "!! "
+            when "High"
+            assign importance = "!!! "
+            else
+            assign importance = ""
+            endcase
+            %}
+            <div class="item">
+                <div class="meta">
+                    {% if item.f %}
+                    <span class="index">
+                    <img class="image" src="https://github.com/sdjmchattie/trmnl-apple-reminders/blob/main/images/icons8-flag-10.png?raw=true">
+                    </span>
+                    {% endif %}
+                </div>
+                <div class="content">
+                    <span class="title title--small clamp--1">{{ item.n | prepend: importance }}</span>
+                    <div class="flex gap--small">
+                    {% assign time = item.d | l_date: time_format, trmnl.user.locale %}
+                    {% assign midnight = "1980-01-01" | l_date: time_format, trmnl.user.locale %}
+                    {% if show_dates_and_times and time != midnight %}
+                    <span class="label label--small label--underline">{{ time }}</span>
+                    {% endif %}
+                    {% if show_list_names %}
+                    <span class="label label--small label--underline">{{ item.l }}</span>
+                    {% endif %}
+                    </div>
+                    <span class="description clamp--2" style="word-break: normal;">
+                    {% if show_notes %}
+                    {{ item.o }}
+                    {% endif %}
+                    </span>
+                    {% if show_tags and item.t != empty %}
+                    <div class="flex gap--xsmall mt--1">
+                    {% assign tags = item.t | split: ' ' %}
+                    {% for tag in tags %}
+                        <div class="label label--small label--inverted">#{{ tag }}</div>
+                    {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
         </div>
-        {% endif %}
-      </div>
-      {% endfor %}
-      {% endif %}
+        <div class="column" data-list-limit="true">
+            <div class="bg-gray-2 p--1 text--center" style="border-radius: 8px;">
+                <span class="title text--white" style="text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000, 1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000;">
+                    Upcoming
+                </span>
+            </div>
+            {% for item in future %}
+            {% liquid
+            case item.p
+            when "Low"
+            assign importance = "! "
+            when "Medium"
+            assign importance = "!! "
+            when "High"
+            assign importance = "!!! "
+            else
+            assign importance = ""
+            endcase
+            %}
+            <div class="item">
+                <div class="meta">
+                    {% if item.f %}
+                    <span class="index">
+                    <img class="image" src="https://github.com/sdjmchattie/trmnl-apple-reminders/blob/main/images/icons8-flag-10.png?raw=true">
+                    </span>
+                    {% endif %}
+                </div>
+                <div class="content">
+                    <span class="title title--small clamp--1">{{ item.n | prepend: importance }}</span>
+                    <div class="flex gap--small">
+                    {% if show_dates_and_times %}
+                    <span class="label label--small label--underline">{{ item.d | l_date: date_format, trmnl.user.locale }}</span>
+                    {% endif %}
+                    {% if show_list_names %}
+                    <span class="label label--small label--underline">{{ item.l }}</span>
+                    {% endif %}
+                    </div>
+                    <span class="description clamp--2" style="word-break: normal;">
+                    {% if show_notes %}
+                    {{ item.o }}
+                    {% endif %}
+                    </span>
+                    {% if show_tags and item.t != empty %}
+                    <div class="flex gap--xsmall mt--1">
+                    {% assign tags = item.t | split: ' ' %}
+                    {% for tag in tags %}
+                        <div class="label label--small label--inverted">#{{ tag }}</div>
+                    {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
     </div>
-    <div class="column" data-list-limit="true" data-list-hidden-count="true">
-      <div class="bg-gray-2 p--1 text--center" style="border-radius: 8px;">
-        <span class="title text--white" style="text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000, 1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000;">
-          {{ 'today' | l_word: trmnl.user.locale | capitalize }}
-        </span>
-      </div>
-      {% if today == empty %}
-      <div class="flex flex--col h--28 gap--space-between">
-        <span class="title">Time For a Coffee</span>
-        <span class="description">No more reminders for today!</span>
-      </div>
-      {% else %}
-      {% for item in today %}
-      {% liquid
-      case item.priority
-      when "Low"
-      assign importance = "! "
-      when "Medium"
-      assign importance = "!! "
-      when "High"
-      assign importance = "!!! "
-      else
-      assign importance = ""
-      endcase
-      %}
-      <div class="item">
-        <div class="meta">
-          {% if item.flagged %}
-          <span class="index">
-          <img class="image" src="https://github.com/sdjmchattie/trmnl-apple-reminders/blob/main/images/icons8-flag-10.png?raw=true">
-          </span>
-          {% endif %}
-        </div>
-        <div class="content">
-          <span class="title title--small clamp--1">{{ item.name | prepend: importance }}</span>
-          <div class="flex gap--small">
-          {% assign time = item.deadline | l_date: time_format, trmnl.user.locale %}
-          {% assign midnight = "1980-01-01" | l_date: time_format, trmnl.user.locale %}
-          {% if show_dates_and_times and time != midnight %}
-          <span class="label label--small label--underline">{{ time }}</span>
-          {% endif %}
-          {% if show_list_names %}
-          <span class="label label--small label--underline">{{ item.list }}</span>
-          {% endif %}
-          </div>
-          <span class="description clamp--2" style="word-break: normal;">
-          {% if show_notes %}
-          {{ item.notes }}
-          {% endif %}
-          </span>
-          {% if show_tags and item.tags != empty %}
-          <div class="flex gap--xsmall mt--1">
-          {% assign tags = item.tags | split: ' ' %}
-          {% for tag in tags %}
-            <div class="label label--small label--inverted">#{{ tag }}</div>
-          {% endfor %}
-          </div>
-          {% endif %}
-        </div>
-      </div>
-      {% endfor %}
-      {% endif %}
-    </div>
-    <div class="column" data-list-limit="true">
-      <div class="bg-gray-2 p--1 text--center" style="border-radius: 8px;">
-        <span class="title text--white" style="text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000, 1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000;">
-          Upcoming
-        </span>
-      </div>
-      {% for item in future %}
-      {% liquid
-      case item.priority
-      when "Low"
-      assign importance = "! "
-      when "Medium"
-      assign importance = "!! "
-      when "High"
-      assign importance = "!!! "
-      else
-      assign importance = ""
-      endcase
-      %}
-      <div class="item">
-        <div class="meta">
-          {% if item.flagged %}
-          <span class="index">
-          <img class="image" src="https://github.com/sdjmchattie/trmnl-apple-reminders/blob/main/images/icons8-flag-10.png?raw=true">
-          </span>
-          {% endif %}
-        </div>
-        <div class="content">
-          <span class="title title--small clamp--1">{{ item.name | prepend: importance }}</span>
-          <div class="flex gap--small">
-          {% if show_dates_and_times %}
-          <span class="label label--small label--underline">{{ item.deadline | l_date: date_format, trmnl.user.locale }}</span>
-          {% endif %}
-          {% if show_list_names %}
-          <span class="label label--small label--underline">{{ item.list }}</span>
-          {% endif %}
-          </div>
-          <span class="description clamp--2" style="word-break: normal;">
-          {% if show_notes %}
-          {{ item.notes }}
-          {% endif %}
-          </span>
-          {% if show_tags and item.tags != empty %}
-          <div class="flex gap--xsmall mt--1">
-          {% assign tags = item.tags | split: ' ' %}
-          {% for tag in tags %}
-            <div class="label label--small label--inverted">#{{ tag }}</div>
-          {% endfor %}
-          </div>
-          {% endif %}
-        </div>
-      </div>
-      {% endfor %}
-    </div>
-  </div>
+</div>
+
+<div class="title_bar">
+    <img class="image" src="https://github.com/sdjmchattie/trmnl-apple-reminders/blob/main/images/icons8-apple-logo-30.png?raw=true">
+    <span class="title">{{ trmnl.plugin_settings.instance_name }}</span>
+    {% case trmnl.plugin_settings.custom_fields_values.right_label %}
+    {% when "attribution" %}
+    <span class="instance">by sdjmchattie.github.io</span>
+    {% when "your_name" %}
+    <span class="instance">{{ trmnl.user.name }}</span>
+    {% endcase %}
 </div>
