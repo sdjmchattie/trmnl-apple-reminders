@@ -54,9 +54,19 @@ endcase
 {% endcapture %}
 {% endunless %}
 
+{% liquid
+if overdue == empty
+  assign overdue_portrait = "portrait:hidden"
+  assign upcoming_portrait = ""
+else
+  assign overdue_portrait = ""
+  assign upcoming_portrait = "portrait:hidden"
+endif
+%}
+
 <div class="layout layout--row layout--top">
     <div class="columns">
-        <div class="column" data-list-limit="true" data-list-hidden-count="true">
+        <div class="column {{ overdue_portrait }}" data-list-limit="true" data-list-hidden-count="true">
             <div class="bg-gray-2 p--1 text--center" style="border-radius: 8px;">
                 <span class="title text--white" style="text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000, 1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000;">
                     Overdue
@@ -179,7 +189,7 @@ endcase
             {% endfor %}
             {% endif %}
         </div>
-        <div class="column" data-list-limit="true">
+        <div class="column {{ upcoming_portrait }}" data-list-limit="true">
             <div class="bg-gray-2 p--1 text--center" style="border-radius: 8px;">
                 <span class="title text--white" style="text-shadow: 2px 0 #000, -2px 0 #000, 0 2px #000, 0 -2px #000, 1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000;">
                     Upcoming
