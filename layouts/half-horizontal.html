@@ -73,9 +73,10 @@ endif
                 </span>
             </div>
             {% if overdue == empty %}
-            <div class="flex flex--col h--28 gap--space-between">
-                <span class="title">Perfection</span>
-                <span class="description">No overdue reminders!</span>
+            <div class="flex flex--col h--28 lg:h--80 gap--space-between">
+                <span class="title lg:title--large">Perfection</span>
+                <span class="description lg:title--small">No overdue reminders!</span>
+                <img class="image hidden lg:block" src="https://github.com/sdjmchattie/trmnl-apple-reminders/blob/main/images/zen-150-x.png?raw=true">
             </div>
             {% else %}
             {% for item in overdue %}
@@ -133,9 +134,10 @@ endif
                 </span>
             </div>
             {% if today == empty %}
-            <div class="flex flex--col h--28 gap--space-between">
-                <span class="title">Time For a Coffee</span>
-                <span class="description">No more reminders for today!</span>
+            <div class="flex flex--col h--28 lg:h--80 gap--space-between">
+                <span class="title lg:title--large">Time For a Coffee</span>
+                <span class="description lg:title--small">No more reminders for today!</span>
+                <img class="image hidden lg:block" src="https://github.com/sdjmchattie/trmnl-apple-reminders/blob/main/images/coffee-150-x.png?raw=true">
             </div>
             {% else %}
             {% for item in today %}
