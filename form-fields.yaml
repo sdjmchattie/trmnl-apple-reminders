@@ -7,6 +7,11 @@
     Set up automations to trigger it at 00:05 and when Reminders is closed.
     You will need to know the UUID of this plugin instance while importing.
     Note that only reminders with a due date will be sent to TRMNL using this Shortcut.
+- keyname: title_lines
+  field_type: number
+  default: 1
+  name: Title Lines
+  description: How many maximum lines do you want titles to be displayed over?
 - keyname: show_dates_and_times
   field_type: select
   options:
@@ -31,6 +36,11 @@
   default: "yes"
   name: Notes
   description: Do you want notes shown for reminders?
+- keyname: note_lines
+  field_type: number
+  default: 2
+  name: Note Lines
+  description: How many maximum lines do you want notes to be displayed over (will have no effect if notes are not shown)?
 - keyname: show_tags
   field_type: select
   options:

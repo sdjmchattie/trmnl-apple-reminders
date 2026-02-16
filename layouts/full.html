@@ -102,7 +102,7 @@ endif
           {% endif %}
         </div>
         <div class="content">
-          <span class="title title--small" data-clamp="1">{{ item.n | prepend: importance }}</span>
+          <span class="title title--small" data-clamp="{{ trmnl.plugin_settings.custom_fields_values.title_lines }}">{{ item.n | prepend: importance }}</span>
           <div class="flex gap--small">
             {% if show_dates_and_times %}
             <span class="label label--small label--underline">{{ item.d | l_date: date_format, trmnl.user.locale }}</span>
@@ -111,7 +111,7 @@ endif
             <span class="label label--small label--underline">{{ item.l }}</span>
             {% endif %}
           </div>
-          <span class="description" data-clamp="2" style="word-break: normal;">
+          <span class="description" data-clamp="{{ trmnl.plugin_settings.custom_fields_values.note_lines }}" style="word-break: normal;">
             {% if show_notes %}
             {{ item.o }}
             {% endif %}
@@ -164,7 +164,7 @@ endif
           {% endif %}
         </div>
         <div class="content">
-          <span class="title title--small" data-clamp="1">{{ item.n | prepend: importance }}</span>
+          <span class="title title--small" data-clamp="{{ trmnl.plugin_settings.custom_fields_values.title_lines }}">{{ item.n | prepend: importance }}</span>
           <div class="flex gap--small">
             {% assign time = item.d | l_date: time_format, trmnl.user.locale %}
             {% assign midnight = "1980-01-01" | l_date: time_format, trmnl.user.locale %}
@@ -175,7 +175,7 @@ endif
             <span class="label label--small label--underline">{{ item.l }}</span>
             {% endif %}
           </div>
-          <span class="description" data-clamp="2" style="word-break: normal;">
+          <span class="description" data-clamp="{{ trmnl.plugin_settings.custom_fields_values.note_lines }}" style="word-break: normal;">
             {% if show_notes %}
             {{ item.o }}
             {% endif %}
@@ -221,7 +221,7 @@ endif
           {% endif %}
         </div>
         <div class="content">
-          <span class="title title--small" data-clamp="1">{{ item.n | prepend: importance }}</span>
+          <span class="title title--small" data-clamp="{{ trmnl.plugin_settings.custom_fields_values.title_lines }}">{{ item.n | prepend: importance }}</span>
           <div class="flex gap--small">
             {% if show_dates_and_times %}
             <span class="label label--small label--underline">{{ item.d | l_date: date_format, trmnl.user.locale }}</span>
@@ -230,7 +230,7 @@ endif
             <span class="label label--small label--underline">{{ item.l }}</span>
             {% endif %}
           </div>
-          <span class="description" data-clamp="2" style="word-break: normal;">
+          <span class="description" data-clamp="{{ trmnl.plugin_settings.custom_fields_values.note_lines }}" style="word-break: normal;">
             {% if show_notes %}
             {{ item.o }}
             {% endif %}
