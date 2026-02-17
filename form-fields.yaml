@@ -10,6 +10,8 @@
 - keyname: title_lines
   field_type: number
   default: 1
+  min: 1
+  max: 9
   name: Title Lines
   description: How many maximum lines do you want titles to be displayed over?
 - keyname: show_dates_and_times
@@ -39,6 +41,8 @@
 - keyname: note_lines
   field_type: number
   default: 2
+  min: 1
+  max: 9
   name: Note Lines
   description: How many maximum lines do you want notes to be displayed over (will have no effect if notes are not shown)?
 - keyname: show_tags
